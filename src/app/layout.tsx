@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import StoreProvider from "@/redux/StoreProvider";
+import Link from "next/link";
+import { Toaster } from "react-hot-toast";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +19,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <StoreProvider>
+      <html lang="en">
+        <body className={inter.className}>
+        <Toaster position="top-center"/>
+          <nav className="">
+            <div className="flex gap-3 bg-slate-400 p-4">
+              <Link href={"/login"} className="hover:text-white">
+                Login
+              </Link>
+              <Link href={"/signup"} className="hover:text-white">
+                signup
+              </Link>
+              <Link href={"/profile"} className="hover:text-white">
+                profile
+              </Link>
+            </div>
+          </nav>
+
+          {children}
+        </body>
+      </html>
+    </StoreProvider>
   );
 }
